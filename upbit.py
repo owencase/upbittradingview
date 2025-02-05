@@ -125,12 +125,12 @@ def run_bot():
                     print("No valid trade signal in the email.")
             
             # 1분마다 이메일을 확인 (60초 후 반복)
-            time.sleep(60)
+            time.sleep(10)
         
         except Exception as e:
             # 오류가 발생하면 오류 메시지 출력하고 1분 후 다시 시도
             print(f"Error occurred: {e}")
-            time.sleep(60)
+            time.sleep(20)
 
 # 6. 이메일을 읽은 상태로 표시하는 함수
 def mark_email_as_read(email_id):
