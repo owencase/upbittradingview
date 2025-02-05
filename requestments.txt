@@ -1,0 +1,9 @@
+pandas
+matplotlib
+numpy
+requests
+httplib2
+pyjwt
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
