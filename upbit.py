@@ -31,12 +31,17 @@ def get_tradingview_email():
     # 읽지 않은 TradingView에서 보낸 이메일만 필터링
     status, messages = mail.search(None, '(UNSEEN FROM "noreply@tradingview.com")')
     
-    if status != "OK":
+    if status != "OK" or not messages[0]:
         print("No new TradingView emails found.")
-        return None, None
+        return None, None  # 메시지가 없으면 None 반환
     
     # 최근 이메일을 가져옴 (마지막 이메일)
-    latest_email_id = messages[0].split()[-1]
+    try:
+        latest_email_id = messages[0].split()[-1]
+    except IndexError:
+        print("Error: No emails found.")
+        return None, None
+    
     status, msg_data = mail.fetch(latest_email_id, "(RFC822)")
     
     if status != "OK":
@@ -69,6 +74,7 @@ def get_tradingview_email():
                 return body, latest_email_id
             
     return None, None
+
 
 # 3. 이메일 본문에서 매매 신호를 추출하는 함수
 def parse_email_content(msg_str):
