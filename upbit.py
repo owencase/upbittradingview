@@ -12,8 +12,8 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']  # 읽기 전용 권한 설정
 
 # Upbit API 설정 (여기서 액세스 키와 비밀 키를 입력합니다)
-access_key = 'YOUR_ACCESS_KEY'
-secret_key = 'YOUR_SECRET_KEY'
+access_key = 'd1JNKF2D7jiw5xhNWVMgSeI23Q6XsE2ZN1KySGlG'
+secret_key = 'ndhAvQZQ2EB1xxYMoWCPRx6ceXAP4n9mxrdzvdKL'
 upbit = pyupbit.Upbit(access_key, secret_key)
 
 # 2. Gmail API 인증 함수
@@ -55,10 +55,10 @@ def get_tradingview_email(service):
 
 # 4. 이메일 본문에서 매매 신호를 추출하는 함수
 def parse_email_content(msg_str):
-    # 이메일 내용에서 매수(Buy) 또는 매도(Sell) 신호와 종목명 및 가격을 정규식으로 추출
-    match = re.search(r'(Buy|Sell)\s([A-Z]+)\sat\s([0-9,\.]+)', msg_str)
+    # 이메일 내용에서 Long/Short 신호와 종목명 및 가격을 정규식으로 추출
+    match = re.search(r'([Long|Short])\s*.*\s*Symbol:\s*([A-Z]+)\s*Price:\s*([0-9,\.]+)', msg_str)
     if match:
-        signal = match.group(1)  # 매수/매도 신호
+        signal = match.group(1)  # Long/Short 신호
         symbol = match.group(2)  # 종목명
         price = float(match.group(3).replace(",", ""))  # 가격 (쉼표 제거 후 실수로 변환)
         return signal, symbol, price
@@ -66,11 +66,12 @@ def parse_email_content(msg_str):
 
 # 5. 매수 또는 매도 주문을 실행하는 함수
 def execute_trade(signal, symbol, price):
-    if signal == "Buy":
-        # 시장가 매수 (0.9995는 수수료 제외)
-        upbit.buy_market_order(symbol, price * 0.9995)
-        print(f"Bought {symbol} at {price}")
-    elif signal == "Sell":
+    if signal == "Long":
+        # 1만원으로 매수 (수량 계산 없이 바로 금액을 전달)
+        amount_to_invest = 10000  # 고정된 금액 1만원
+        upbit.buy_market_order(symbol, amount_to_invest)
+        print(f"Bought {symbol} for {amount_to_invest} KRW at {price}")
+    elif signal == "Short":
         # 보유한 잔고를 이용해 시장가 매도
         balance = upbit.get_balance(symbol)  # 해당 종목 잔고
         if balance > 0:
