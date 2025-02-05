@@ -5,7 +5,7 @@ import re
 import time
 
 # 네이버 메일 로그인 정보
-naver_email = "igh002@naver.com"  # 네이버 이메일
+naver_email = "igh002"  # 네이버 이메일
 naver_password = "Kch030303@"  # 네이버 비밀번호
 
 # 2. 네이버 메일에서 TradingView 이메일을 가져오는 함수
