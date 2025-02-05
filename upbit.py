@@ -7,6 +7,7 @@ import pyupbit
 from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
 
 # 1. Gmail API 인증 및 서비스 구축
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']  # 읽기 전용 권한 설정
@@ -28,7 +29,7 @@ def authenticate_gmail():
         else:
             # 새로 인증을 받기 위한 흐름
             flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)  # 인증 서버 실행
+            creds = flow.run_console()  # run_console()로 변경
         # 인증 후 토큰을 저장하여 이후 인증을 생략
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
