@@ -79,7 +79,8 @@ def get_tradingview_email():
 # 3. 이메일 본문에서 매매 신호를 추출하는 함수
 def parse_email_content(msg_str):
     # 이메일 내용에서 Long/Short 신호와 종목명 및 가격을 정규식으로 추출
-    match = re.search(r'([Long|Short])\s*.*\s*Symbol:\s*([A-Z]+)\s*Price:\s*([0-9,\.]+)', msg_str)
+    # '[Loxx]: Long' 또는 '[Loxx]: Short' 패턴을 추출
+    match = re.search(r'\[Loxx\]:\s*(Long|Short)\s*Symbol:\s*([A-Z]+)KRW\s*Price:\s*([0-9,\.]+)', msg_str)
     if match:
         signal = match.group(1)  # Long/Short 신호
         symbol = match.group(2)  # 종목명
