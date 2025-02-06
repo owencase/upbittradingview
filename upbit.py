@@ -140,16 +140,28 @@ def run_bot():
 
 # 6. 이메일을 읽은 상태로 표시하는 함수
 def mark_email_as_read(email_id):
-    # IMAP 서버에 연결 (네이버 메일의 IMAP 서버)
-    mail = imaplib.IMAP4_SSL("imap.naver.com")
-    mail.login(naver_email, naver_password)
-    
-    # 'INBOX' 폴더 선택
-    mail.select("inbox")
-    
-    # 이메일을 읽은 상태로 표시
-    mail.store(email_id, '+FLAGS', '\\Seen')
-    print(f"Marked email {email_id} as read.")
+    try:
+        # IMAP 서버에 연결 (네이버 메일의 IMAP 서버)
+        mail = imaplib.IMAP4_SSL("imap.naver.com")
+        mail.login(naver_email, naver_password)
+        
+        # 'INBOX' 폴더 선택
+        mail.select("inbox")
+        
+        # 이메일을 읽은 상태로 표시
+        result = mail.store(email_id, '+FLAGS', '\\Seen')  # 읽음 상태로 표시
+        if result[0] == 'OK':
+            print(f"Marked email {email_id} as read.")
+        else:
+            print(f"Failed to mark email {email_id} as read. Result: {result}")
+        
+        # 세션 종료
+        mail.close()
+        mail.logout()
+        
+    except Exception as e:
+        print(f"Error marking email {email_id} as read: {e}")
+
 
 # 7. 봇 실행
 if __name__ == "__main__":
