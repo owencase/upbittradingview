@@ -16,8 +16,8 @@ upbit_secret_key = "ndhAvQZQ2EB1xxYMoWCPRx6ceXAP4n9mxrdzvdKL"  # Upbit Secret Ke
 # pyupbit 객체 생성
 upbit = pyupbit.Upbit(upbit_access_key, upbit_secret_key)
 
-# 고정 매수 가격 설정 (40,000 원)
-fixed_buy_price = 40000
+# 고정 매수 가격 설정 (20,000 원)
+fixed_buy_price = 20000
 
 # 2. 네이버 메일에서 TradingView 이메일을 가져오는 함수
 def get_tradingview_email():
