@@ -6,8 +6,8 @@ import time
 import pyupbit
 
 # 네이버 메일 로그인 정보
-naver_email = "igh002"  # 네이버 이메일
-naver_password = "Kch030303@"  # 네이버 비밀번호
+naver_email = "naver_id"  # 네이버 이메일
+naver_password = "naver_password"  # 네이버 비밀번호
 
 # Upbit API 키 설정
 upbit_access_key = "access_key"  # Upbit Access Key
