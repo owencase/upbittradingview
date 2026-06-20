@@ -10,8 +10,8 @@ naver_email = "igh002"  # 네이버 이메일
 naver_password = "Kch030303@"  # 네이버 비밀번호
 
 # Upbit API 키 설정
-upbit_access_key = "d1JNKF2D7jiw5xhNWVMgSeI23Q6XsE2ZN1KySGlG"  # Upbit Access Key
-upbit_secret_key = "ndhAvQZQ2EB1xxYMoWCPRx6ceXAP4n9mxrdzvdKL"  # Upbit Secret Key
+upbit_access_key = "access_key"  # Upbit Access Key
+upbit_secret_key = "secret_key"  # Upbit Secret Key
 
 # pyupbit 객체 생성
 upbit = pyupbit.Upbit(upbit_access_key, upbit_secret_key)
